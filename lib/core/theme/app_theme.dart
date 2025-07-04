@@ -6,14 +6,18 @@ class AppTheme {
     brightness: Brightness.light,
     primaryColor: AppColors.primary,
     scaffoldBackgroundColor: AppColors.background,
-    colorScheme: const ColorScheme.light(
+    colorScheme: ColorScheme(
+      brightness: Brightness.light,
       primary: AppColors.primary,
+      onPrimary: AppColors.white,
       secondary: AppColors.secondary,
+      onSecondary: AppColors.white,
       background: AppColors.background,
-      surface: Colors.white,
-      onPrimary: Colors.white,
-      onSecondary: Colors.white,
-      onSurface: AppColors.textPrimary,
+      onBackground: AppColors.textPrimary,
+      surface: AppColors.surface,
+      onSurface: AppColors.textSecondary,
+      error: AppColors.error,
+      onError: AppColors.white,
     ),
     textTheme: const TextTheme(
       titleLarge: TextStyle(color: AppColors.textPrimary),
@@ -22,7 +26,7 @@ class AppTheme {
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         backgroundColor: AppColors.primary,
-        foregroundColor: Colors.white,
+        foregroundColor: AppColors.white,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),
         ),
@@ -33,24 +37,26 @@ class AppTheme {
   static ThemeData darkTheme = ThemeData(
     brightness: Brightness.dark,
     primaryColor: AppColors.primary,
-    scaffoldBackgroundColor: const Color(0xFF121212),
-    colorScheme: const ColorScheme.dark(
+    scaffoldBackgroundColor: const Color.fromRGBO(18, 18, 18, 1),
+    colorScheme: ColorScheme(
+      brightness: Brightness.dark,
       primary: AppColors.primary,
+      onPrimary: AppColors.white,
       secondary: AppColors.secondary,
-      background: Color(0xFF121212),
-      surface: Color(0xFF1E1E1E),
-      onPrimary: Colors.white,
-      onSecondary: Colors.white,
-      onSurface: AppColors.textSecondary,
+      onSecondary: AppColors.white,
+      surface: AppColors.darkSurface,
+      onSurface: Colors.grey,
+      error: AppColors.error,
+      onError: AppColors.white,
     ),
     textTheme: const TextTheme(
-      titleLarge: TextStyle(color: Colors.white),
+      titleLarge: TextStyle(color: AppColors.white),
       bodyMedium: TextStyle(color: Colors.grey),
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         backgroundColor: AppColors.primary,
-        foregroundColor: Colors.white,
+        foregroundColor: AppColors.white,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),
         ),

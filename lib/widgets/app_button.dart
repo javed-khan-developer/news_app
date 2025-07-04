@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AppButton extends StatelessWidget {
   final String label;
@@ -36,7 +37,7 @@ class AppButton extends StatelessWidget {
             style: TextStyle(
               color: textColor ?? theme.colorScheme.onPrimary,
               fontWeight: FontWeight.w600,
-              fontSize: 16,
+              fontSize: 16.sp,
             ),
           ),
         ),
