@@ -5,12 +5,13 @@ import 'package:news_app/core/utils/app_snackbar.dart';
 import '../model/news_model.dart';
 
 class ApiService {
-  static const _apiKey = '24aa7134f9724e60a8ab9c255fc4fe83';
+  static const _apiKey = '320fce0fa0974a6e9b5a8eb1366508d3';
   static const _baseUrl = 'https://newsapi.org/v2';
+  static const _country = 'us';
 
   static Future<List<Article>> fetchNews(String category, int page) async {
     final url = Uri.parse(
-      '$_baseUrl/top-headlines?country=us&category=$category&page=$page&pageSize=10&apiKey=$_apiKey',
+      '$_baseUrl/top-headlines?country=$_country&category=$category&page=$page&pageSize=10&apiKey=$_apiKey',
     );
     AppLogger.log("GET: $url", tag: 'API', level: LogLevel.info);
 

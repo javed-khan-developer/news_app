@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:news_app/widgets/app_bar.dart';
 
@@ -18,9 +19,8 @@ class BookmarkView extends StatelessWidget {
       appBar: buildAppBar(title: "Bookmarks",showHome: true,showBookmarked: false,),
       body: Obx(() {
         if (controller.bookmarks.isEmpty) {
-          return const Center(child: AppText("No bookmarks yet."));
+          return  Center(child: AppText("No bookmarks yet.",fontSize: 20.sp,));
         }
-
         return ListView.builder(
           itemCount: controller.bookmarks.length,
           itemBuilder: (context, index) {

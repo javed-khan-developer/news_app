@@ -87,9 +87,9 @@ Routing: Managed using GetMaterialApp and named routes
 Persistence: Uses SharedPreferences for bookmarks
 
 🌐 API Used
-NewsAPI.org
+Signup/Login to this NewsAPI.org and get the API Key
 
-static const _apiKey = '24aa7134f9724e60a8ab9c255fc4fe83';
+_apiKey = 'your_api_key';
 
 ❗ Notes
 API has request limits; avoid sending excessive search queries.

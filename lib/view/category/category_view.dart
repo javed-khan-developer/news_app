@@ -18,7 +18,7 @@ class CategoryView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String category = Get.arguments;
+    final String category = Get.arguments??'';
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       controller.loadCategory(category);
@@ -86,6 +86,12 @@ class CategoryView extends StatelessWidget {
                             ? 1
                             : 1),
                     itemBuilder: (context, index) {
+                      if (articlesToDisplay.isEmpty) {
+                        return  Center(child: Padding(
+                          padding:  EdgeInsets.only(top: 18.sp),
+                          child: AppText("No articles found.",fontSize: 20.sp,),
+                        ));
+                      }
                       if (index < articlesToDisplay.length) {
                         return NewsTile(article: articlesToDisplay[index]);
                       }
