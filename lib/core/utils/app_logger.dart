@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 enum LogLevel { debug, info, warn, error, success }
 
 class AppLogger {
-  static bool isEnabled = kDebugMode; // Disable logs in release mode
+  static bool isEnabled = true; // Disable logs in release mode
 
   static void log(
       String message, {
