@@ -40,6 +40,12 @@ class BookmarkController extends GetxController {
     return bookmarks.contains(article);
   }
 
+  void clearAllBookmarks() {
+    bookmarks.clear();
+    saveBookmarks();
+    showAppSnackBar("Cleared", "All bookmarks removed.");
+  }
+
   Future<void> saveBookmarks() async {
     final prefs = await SharedPreferences.getInstance();
     final encoded = bookmarks.map((e) => jsonEncode(e.toJson())).toList();

@@ -2,9 +2,7 @@ import 'package:get/get.dart';
 import '../core/utils/app_snackbar.dart';
 import '../core/utils/debouncer.dart';
 import '../data/model/news_model.dart';
-
-import '../data/provider/api_service.dart';
-
+import '../data/dummy_data.dart';
 
 class CategoryController extends GetxController {
   final articles = <Article>[].obs;
@@ -26,12 +24,39 @@ class CategoryController extends GetxController {
     }
   }
 
-   fetchNews() async {
+  fetchNews() async {
     if (isLoading.value || !hasMore.value) return;
 
     isLoading.value = true;
     try {
-      final result = await ApiService.fetchNews(category, _page);
+      List<Article> result = [];
+
+      switch (category.toLowerCase()) {
+        case 'general':
+          result = DummyData.getGeneralNews();
+          break;
+        case 'technology':
+          result = DummyData.getTechnologyNews();
+          break;
+        case 'sports':
+          result = DummyData.getSportsNews();
+          break;
+        case 'entertainment':
+          result = DummyData.getEntertainmentNews();
+          break;
+        case 'business':
+          result = DummyData.getBusinessNews();
+          break;
+        case 'health':
+          result = DummyData.getHealthNews();
+          break;
+        case 'science':
+          result = DummyData.getScienceNews();
+          break;
+        default:
+          result = DummyData.getGeneralNews();
+      }
+
       if (result.isEmpty) {
         hasMore.value = false;
       } else {
@@ -65,7 +90,7 @@ class CategoryController extends GetxController {
     searchQuery = query;
 
     try {
-      final result = await ApiService.searchNews(query);
+      final result = DummyData.getSearchResults(query);
       searchResults.assignAll(result);
     } catch (e) {
       showAppSnackBar("Error", "Search failed.");
@@ -80,6 +105,7 @@ class CategoryController extends GetxController {
     searchQuery = '';
     searchResults.clear();
   }
+
   void onSearchChanged(String value) {
     _debouncer.run(() {
       if (value.trim().isEmpty) {
@@ -95,5 +121,4 @@ class CategoryController extends GetxController {
     _debouncer.dispose();
     super.onClose();
   }
-
 }

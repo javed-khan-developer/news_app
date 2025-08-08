@@ -12,6 +12,7 @@ AppBar buildAppBar({
   double? fontSize,
   bool? showRefresh = false,
   bool? showHome = false,
+  bool? showLanguage = false,
   bool? centreTitle = false,
   bool? showBookmarked = true,
 }) {
@@ -27,6 +28,11 @@ AppBar buildAppBar({
         IconButton(
           icon: const Icon(Icons.home),
           onPressed: () => Get.offAllNamed(Routes.home),
+        ),
+      if (showLanguage == true)
+        IconButton(
+          icon: const Icon(Icons.language),
+          onPressed: () => Get.toNamed(Routes.language),
         ),
       Obx(() {
         final isDark = themeController.themeMode.value == ThemeMode.dark;

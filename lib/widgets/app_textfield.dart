@@ -8,6 +8,7 @@ class AppTextField extends StatelessWidget {
   final Widget? suffixIcon;
   final Widget? prefixIcon;
   final void Function(String)? onChanged;
+  final VoidCallback? onTap;
 
   const AppTextField({
     super.key,
@@ -18,6 +19,7 @@ class AppTextField extends StatelessWidget {
     this.suffixIcon,
     this.prefixIcon,
     this.onChanged,
+    this.onTap,
   });
 
   @override
@@ -25,7 +27,8 @@ class AppTextField extends StatelessWidget {
     final theme = Theme.of(context);
 
     return TextField(
-      onChanged:onChanged,
+      onChanged: onChanged,
+      onTap: onTap,
       controller: controller,
       keyboardType: keyboardType,
       obscureText: obscureText,

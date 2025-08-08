@@ -5,6 +5,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:news_app/routes/app_pages.dart';
 import 'package:news_app/widgets/app_text.dart';
 import 'package:news_app/widgets/app_textfield.dart';
+import 'package:news_app/widgets/news_tile.dart';
+import 'package:news_app/widgets/search_suggestions.dart';
 import '../../controller/bookmark_controller.dart';
 import '../../data/model/news_model.dart';
 import '../../controller/category_controller.dart';
@@ -18,7 +20,7 @@ class CategoryView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String category = Get.arguments??'';
+    final String category = Get.arguments ?? '';
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       controller.loadCategory(category);
@@ -61,8 +63,21 @@ class CategoryView extends StatelessWidget {
                         )
                         : null,
                 onChanged: controller.onSearchChanged,
+                onTap: () {
+                  // Show search suggestions when text field is tapped
+                },
               ),
             ),
+
+            // Show search suggestions when not searching and no results
+            if (!controller.isSearching.value &&
+                controller.searchResults.isEmpty)
+              SearchSuggestions(
+                onSuggestionTap: (suggestion) {
+                  searchController.text = suggestion;
+                  controller.onSearchChanged(suggestion);
+                },
+              ),
             Expanded(
               child: RefreshIndicator(
                 onRefresh: controller.refreshNews,
@@ -87,10 +102,15 @@ class CategoryView extends StatelessWidget {
                             : 1),
                     itemBuilder: (context, index) {
                       if (articlesToDisplay.isEmpty) {
-                        return  Center(child: Padding(
-                          padding:  EdgeInsets.only(top: 18.sp),
-                          child: AppText("No articles found.",fontSize: 20.sp,),
-                        ));
+                        return Center(
+                          child: Padding(
+                            padding: EdgeInsets.only(top: 18.sp),
+                            child: AppText(
+                              "No articles found.",
+                              fontSize: 20.sp,
+                            ),
+                          ),
+                        );
                       }
                       if (index < articlesToDisplay.length) {
                         return NewsTile(article: articlesToDisplay[index]);
@@ -119,48 +139,6 @@ class CategoryView extends StatelessWidget {
           ],
         );
       }),
-    );
-  }
-}
-
-class NewsTile extends StatelessWidget {
-  final Article article;
-  final BookmarkController bookmarkController = Get.put(BookmarkController());
-
-  NewsTile({super.key, required this.article});
-
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      leading: CachedNetworkImage(
-        imageUrl: article.urlToImage,
-        width: MediaQuery.sizeOf(context).width / 4,
-        fit: BoxFit.cover,
-        placeholder: (_, __) => const CircularProgressIndicator(),
-        errorWidget: (_, __, ___) => const Icon(Icons.error),
-      ),
-      title: AppText(
-        article.title,
-        fontWeight: FontWeight.bold,
-        maxLines: 2,
-        overflow: TextOverflow.ellipsis,
-      ),
-      subtitle: AppText(
-        article.description,
-        maxLines: 3,
-        overflow: TextOverflow.ellipsis,
-      ),
-      trailing: Obx(() {
-        final isSaved = bookmarkController.isBookmarked(article);
-        return IconButton(
-          icon: Icon(
-            isSaved ? Icons.bookmark : Icons.bookmark_outline,
-            color: isSaved ? Colors.blue : Colors.grey,
-          ),
-          onPressed: () => bookmarkController.toggleBookmark(article),
-        );
-      }),
-      onTap: () => Get.toNamed(Routes.article, arguments: article),
     );
   }
 }
